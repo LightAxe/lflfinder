@@ -1,0 +1,18 @@
+{
+  "bookboxes": {
+    "Bridlewood": {
+      "coordinates": {
+        "lng": -123.33086460828783,
+        "lat": 44.905492262115075
+      },
+      "description": "Bridlewood Book Box"
+    },
+    "Memorial": {
+      "coordinates": {
+        "lng": -123.32561284303664,
+        "lat": 44.919867651154085
+      },
+      "description": "Memorial Book Box"
+    }
+  }
+}

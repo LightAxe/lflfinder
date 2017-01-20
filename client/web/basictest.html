@@ -14,6 +14,12 @@
       padding: 0;
     }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+
+      });
+    </script>
   </head>
   <body>
     <h3>My Google Maps Demo</h3>
@@ -27,23 +33,28 @@
           center: uluru
         });
 
-        var infoContent = '<h2>Bridlewood LFL</h2><p>This is the Bridlewood LFL</p>'
+        var myItems;
 
-        var infowindow = new google.maps.InfoWindow({
-          content: infoContent
+        $.getJSON('sampledata/samples.json', function(data) {
+          bookBoxes = data.bookboxes;
+          console.log(myItems);
+          $.each(bookBoxes, function(i, box) {
+            var marker = new google.maps.Marker({
+              position: box.coordinates,
+              map: map,
+              icon: image,
+              title: box.description
+            });
+            var boxName = i;
+            var infoContent = '<h2>' + boxName + '</h2>' + '<p>' + box.description + '</p>';
+            var infoWindow = new google.maps.InfoWindow({
+              content: infoContent
+            });
+            marker.addListener('click', function() {
+              infoWindow.open(map,marker);
+            });
+          });
         });
-
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map,
-          icon: image,
-          title: 'Bridlewood Little Free Library'
-        });
-        
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-
       }
     </script>
     <script async defer
