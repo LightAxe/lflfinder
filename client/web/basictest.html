@@ -22,22 +22,32 @@
     </script>
   </head>
   <body>
-    <h3>My Google Maps Demo</h3>
+    <h3>Little Library Locator</h3>
     <div id="map"></div>
     <script>
+      var map;
+      var markers = [];
+      var infoWindows = [];
+
       function initMap() {
         var uluru = {lat: 44.905477, lng: -123.331039};
-        var image = 'img/books.png'
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 18,
           center: uluru
         });
 
-        var myItems;
+        map.addListener('idle', function() {
+          populateMap(map);
+        });
+      }
+
+      function populateMap() {
+        var image = 'img/books.png'
 
         $.getJSON('sampledata/samples.json', function(data) {
           bookBoxes = data.bookboxes;
-          console.log(myItems);
+          clearMap();
+
           $.each(bookBoxes, function(i, box) {
             var marker = new google.maps.Marker({
               position: box.coordinates,
@@ -45,16 +55,32 @@
               icon: image,
               title: box.description
             });
+            markers.push(marker);
+
             var boxName = i;
             var infoContent = '<h2>' + boxName + '</h2>' + '<p>' + box.description + '</p>';
             var infoWindow = new google.maps.InfoWindow({
               content: infoContent
             });
+            infoWindows.push(infoWindow);
+
             marker.addListener('click', function() {
               infoWindow.open(map,marker);
             });
           });
         });
+      }
+
+      function clearMap() {
+        $.each(markers, function(i, marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        $.each(infoWindows, function(i, infoWindow) {
+          infoWindow.setMap(null);
+        });
+        infoWindows = [];
       }
     </script>
     <script async defer
