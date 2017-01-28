@@ -1,0 +1,17 @@
+
+<h1>Listing libraries</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+
+  <% @libraries.each do |library| %>
+    <tr>
+      <td><%= library.name %></td>
+      <td><%= library.description %></td>
+      <td><%= link_to 'Show', library_path(library) %></td>
+    </tr>
+  <% end %>
+</table>
