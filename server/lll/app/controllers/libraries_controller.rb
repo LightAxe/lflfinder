@@ -8,6 +8,7 @@ class LibrariesController < ApplicationController
   end
 
   def new
+    @library = Library.new
   end
 
   def edit
