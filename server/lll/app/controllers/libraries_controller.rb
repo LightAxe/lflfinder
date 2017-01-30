@@ -16,8 +16,11 @@ class LibrariesController < ApplicationController
   def create
     @library = Library.new(library_params)
 
-    @library.save
-    redirect_to @library
+    if @library.save
+      redirect_to @library
+    else
+      render 'new'
+    end
   end
 
   def update

@@ -1,5 +1,21 @@
 <h1>New Library</h1>
-<%= form_for :library, url: libraries_path do |f| %>  <p>
+<%= form_for :library, url: libraries_path do |f| %>
+
+  <% if @library.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@library.errors.count, "error") %> prohibited
+        this library from being saved:
+      </h2>
+      <ul>
+        <% @library.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </p>
