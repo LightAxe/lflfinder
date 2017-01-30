@@ -12,6 +12,7 @@ class LibrariesController < ApplicationController
   end
 
   def edit
+    @library = Library.find(params[:id])
   end
 
   def create
@@ -25,6 +26,13 @@ class LibrariesController < ApplicationController
   end
 
   def update
+    @library = Library.find(params[:id])
+
+    if @library.update(library_params)
+      redirect_to @library
+    else
+      render 'edit'
+    end
   end
 
   def destroy
